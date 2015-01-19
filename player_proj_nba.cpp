@@ -1,3 +1,4 @@
+
 #include<map>
 #include<vector>
 #include<string>
@@ -35,7 +36,7 @@ void add_player(string player,long salary, float proj_points, map<string, pair<l
 }
 
 //Function to add point guards to the map
-void player_update(map<string,pair<long,float> > &player_map, string file_name){
+void player_update(map<string,pair<long,float> > &player_map_pg, map<string,pair<long,float> > &player_map_sg, map<string, pair<long, float> > &player_map_sf,map<string,pair<long,float> > &player_map_pf, map<string, pair<long, float> > &player_map_c,  string file_name){
  ifstream in_file(file_name);
  string player, player2, pos, date, vs, team, points2, sal;
  float points;
@@ -48,16 +49,27 @@ void player_update(map<string,pair<long,float> > &player_map, string file_name){
      float salary = strtof(sal.c_str(),0);
      salary = salary*1000;
      player = player+player2;
-     add_player(player,salary,points,player_map);
+     if (pos == "PG") {
+         add_player(player,salary,points,player_map_pg);
+     }
+     else if (pos == "SG") {
+         add_player(player,salary,points,player_map_sg);
+     }
+     else if(pos == "SF"){
+         add_player(player,salary,points,player_map_sf);
+     }
+     else if(pos == "PF"){
+         add_player(player,salary,points,player_map_pf);
+     }
+     else if(pos == "C"){
+         add_player(player,salary,points,player_map_c);
+     }
+     else {
+         cout << "Error with: " << player << " " << player2 << endl;
+     }
  }
 }
 
-//Function to print out contents of the map
-void print_out(map<string, pair<long,float> > &player_map) {
-    for (map<string, pair<long,float> >::iterator it=player_map.begin(); it!=player_map.end(); ++it) {
-          cout << it -> first << " : " << it -> second.second  << "  ($" << it -> second.first << ")" << endl;        
-      }
-}
 
 //Function to optimize and eliminate weak candidates
 void optimize_pos_c(map<string, pair<long, float> > &player_map){
