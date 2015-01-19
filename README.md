@@ -6,5 +6,7 @@ Information
 
 2) Primarily coded in C++.
 
-3) Uses two alogrithms to create and output the optimal lineups.
+3) Uses two algorithms to create and output the optimal lineups.
+
+===========
 
